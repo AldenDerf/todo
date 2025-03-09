@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect} from 'react';
 import { Todo } from '../types/todo';
 import  {getTodos, createTodo, updateTodo, deleteTodo} from '../lib/api';
