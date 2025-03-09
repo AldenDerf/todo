@@ -5,7 +5,6 @@ import  {getTodos, createTodo, updateTodo, deleteTodo} from '../lib/api';
 
 const TodoList = () => {
     const [todos, setTodos] = useState<Todo[]>([]);
-    const [newTodo, setNewTodo] = useState('');
 
     useEffect(( ) => {
         fetchTodos();
@@ -16,13 +15,7 @@ const TodoList = () => {
         setTodos(data);
     };
 
-    const handleAddTodo = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!newTodo.trim()) return;
-        const todo = await createTodo(newTodo);
-        setTodos([...todos, todo]);
-        setNewTodo('');
-    };
+
 
     const handleToggleTodo = async (todo: Todo) => {
         const updatedTodo = await updateTodo(todo.id, {
@@ -42,21 +35,7 @@ const TodoList = () => {
                 Todo App
             </h1>
 
-            <form onSubmit={handleAddTodo} className='mb-4'>
-                <input
-                    type="text"
-                    value={newTodo}
-                    onChange={e => setNewTodo(e.target.value)}
-                    placeholder="Add a new todo"
-                    className='w-full p-2 border rounded focus:outline-none focus-ring-2 focus:ring-blue-500'
-                />
-                <button
-                    type="submit"
-                    className='mt-2 w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600'
-                >
-                    Add
-                </button>
-            </form>
+            
 
             <ul className='space-y-2'>
                 {todos.map(todo => (
