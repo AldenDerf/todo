@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect} from 'react';
 import { Todo } from '../types/todo';
-import  {getTodos, createTodo, updateTodo, deleteTodo} from '../lib/api';
+import  {getTodos, updateTodo, deleteTodo} from '../lib/api';
+import CreateTodo from './CreateTodo';
 
 const TodoList = () => {
     const [todos, setTodos] = useState<Todo[]>([]);
@@ -16,7 +17,6 @@ const TodoList = () => {
     };
 
 
-
     const handleToggleTodo = async (todo: Todo) => {
         const updatedTodo = await updateTodo(todo.id, {
             completed: !todo.completed
@@ -29,13 +29,17 @@ const TodoList = () => {
         setTodos(todos.filter(t => t.id !== id));
     };
 
+    const handleAddTodo = (newTodo: Todo) => {
+        setTodos([...todos, newTodo]);
+    }
+
     return (
         <div className='max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg'>
             <h1 className='text-2xl font-bold mb-4 text-center'>
                 Todo App
             </h1>
 
-            
+            <CreateTodo onAddTodo={handleAddTodo} />
 
             <ul className='space-y-2'>
                 {todos.map(todo => (
